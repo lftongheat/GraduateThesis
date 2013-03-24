@@ -57,4 +57,5 @@ fclose(file);
 % Display the result
 figure
 axis equal
-quiver(impyramid(impyramid(medfilt2(flipud(u), [5 5]), 'reduce'), 'reduce'), -impyramid(impyramid(medfilt2(flipud(v), [5 5]), 'reduce'), 'reduce'));
+%quiver(impyramid(impyramid(medfilt2(flipud(u), [5 5]), 'reduce'), 'reduce'), -impyramid(impyramid(medfilt2(flipud(v), [5 5]), 'reduce'), 'reduce'));
+quiver(impyramid(medfilt2(flipud(u), [5 5]), 'reduce'), -impyramid(medfilt2(flipud(v), [5 5]), 'reduce'));
