@@ -126,7 +126,7 @@ for i=1:mlen
         frqtemp = 0;
         for k=1:10
             mrf_features = spMRF_features{k,1};
-            frqtemp = frqtemp;
+            frqtemp 
         end
         mppcaPattern{i,j}.frqhist = 
     end
