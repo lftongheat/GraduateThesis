@@ -1,1 +1,0 @@
-The file'HierarchicalLK.m' contains the entry level function HierarchicalLK(....)
