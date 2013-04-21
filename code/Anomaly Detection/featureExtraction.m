@@ -7,7 +7,7 @@ clear all;
 source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
 frame_len = source.NumberOfFrames;
 
-spMRF_features = cell(frame_len-1, 1);
+%spMRF_features = cell(frame_len-1, 1);
 pre_frame = read(source, 1);%读取第1帧
 pre_frame = rgb2gray(pre_frame);
 frame_size = size(pre_frame);%row:240 col:320
@@ -17,6 +17,7 @@ subregion_num = region_size/subregion_size;
 mlen = frame_size(1)/region_size;
 nlen = frame_size(2)/region_size;
 
+mrf_features = cell(mlen, nlen);
 for i=2:frame_len
     %if (mod(i-1,100) == 0)
         disp(['frames-----------',num2str(i-1)]);
@@ -40,7 +41,7 @@ for i=2:frame_len
 %     degree(negIndex) = degree(negIndex) + 180;
 %     degree(:) = mod((degree(:)+360), 360);%change to 0-360 degree
     [speed] = sqrt(Vx.*Vx+Vy.*Vy);%compute the speed    
-    mrf_features = cell(mlen, nlen);
+    
     for m=1:mlen
         for n=1:nlen
             %divide into regions 30*40
@@ -108,15 +109,14 @@ for i=2:frame_len
                     nodeFeatures{u,v} = [speedSum, oreintations];
                 end
             end
-            
-            mrf_features{m,n} = [nodeFeatures{1,1},nodeFeatures{1,2},nodeFeatures{2,1},nodeFeatures{2,2}];
+            nodeFeatures = [nodeFeatures{1,1},nodeFeatures{1,2},nodeFeatures{2,1},nodeFeatures{2,2}];
+            mrf_features{m,n}(i-1,:) = nodeFeatures;
         end
     end    
     
-    spMRF_features{i-1,1} = mrf_features;
+    %spMRF_features{i-1,1} = mrf_features;
     %%end fo computing features
-    
     pre_frame=cur_frame;%update the pre_frame
 end
 
-save OpticalFlowFeatures.mat spMRF_features;
+save OpticalFlowFeatures.mat mrf_features;
