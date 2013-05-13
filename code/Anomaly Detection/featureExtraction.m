@@ -4,18 +4,19 @@
 clear all;
 
 %read the test video from UNM video dataset
-source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
+source = VideoReader('E:\Resources\vision_data\PETS\59800-66750.avi'); %读入原始视频
+%source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
 frame_len = source.NumberOfFrames;
 
+mlen = 6;
+nlen = 8;
 %spMRF_features = cell(frame_len-1, 1);
 pre_frame = read(source, 1);%读取第1帧
 pre_frame = rgb2gray(pre_frame);
-frame_size = size(pre_frame);%row:240 col:320
-region_size = 40; %40*40
-subregion_size = 20; %20*20
+frame_size = size(pre_frame);%row:240 col:320 or 480*640
+region_size = frame_size(1)/mlen; %40*40 or 80*80
+subregion_size = frame_size(1)/mlen/2; %20*20 or 40*40
 subregion_num = region_size/subregion_size;
-mlen = frame_size(1)/region_size;
-nlen = frame_size(2)/region_size;
 
 mrf_features = cell(mlen, nlen);
 for i=2:frame_len
@@ -44,7 +45,7 @@ for i=2:frame_len
     
     for m=1:mlen
         for n=1:nlen
-            %divide into regions 30*40
+            %divide into regions 40*40 or 80*80
             rowbegin = (m-1)*region_size+1;rowend = m*region_size;
             colbegin = (n-1)*region_size+1;colend = n*region_size;
             [regionVx] = Vx(rowbegin:rowend, colbegin:colend);
@@ -52,7 +53,7 @@ for i=2:frame_len
             [regionSpeed] = speed(rowbegin:rowend, colbegin:colend);
             
             nodeFeatures = cell(subregion_num,subregion_num);
-            %divide into 4 sub-regions 20*20
+            %divide into 4 sub-regions 20*20 or 40*40
             for u=1:subregion_num
                 for v=1:subregion_num
                     rbegin = (u-1)*subregion_size+rowbegin;
@@ -65,29 +66,29 @@ for i=2:frame_len
                     %divide sub-region into 8 patitions
                     quadrant = cell(2, 8);
                     %Vx
-                    [quadrant1x]=subregionVx(1:10, 11:20);%partition 0-90 degree , first quadrant
+                    [quadrant1x]=subregionVx(1:subregion_size/2, subregion_size/2+1:subregion_size);%partition 0-90 degree , first quadrant
                     quadrant{1,1} = tril(fliplr(quadrant1x));%次对角线的下三角 需先进行翻转
                     quadrant{1,2} = triu(fliplr(quadrant1x));%次对角线的上三角 需先进行翻转                 
-                    [quadrant2x]=subregionVx(1:10, 1:10);%partition 90-180 degree , second quadrant
+                    [quadrant2x]=subregionVx(1:subregion_size/2, 1:subregion_size/2);%partition 90-180 degree , second quadrant
                     quadrant{1,3} = triu(quadrant2x);%主对角线的上三角
                     quadrant{1,4} = tril(quadrant2x);%主对角线的下三角
-                    [quadrant3x]=subregionVx(11:20, 1:10);%partition 180-270 degree , third quadrant
+                    [quadrant3x]=subregionVx( subregion_size/2+1:subregion_size, 1:subregion_size/2);%partition 180-270 degree , third quadrant
                     quadrant{1,5} = triu(fliplr(quadrant3x));%次对角线的上三角 需先进行翻转
                     quadrant{1,6} = tril(fliplr(quadrant3x));%次对角线的下三角
-                    [quadrant4x]=subregionVx(11:20, 11:20);%partition 270-360 degree , fourth quadrant
+                    [quadrant4x]=subregionVx( subregion_size/2+1:subregion_size,  subregion_size/2+1:subregion_size);%partition 270-360 degree , fourth quadrant
                     quadrant{1,7} = tril(quadrant4x);
                     quadrant{1,8} = triu(quadrant4x);
                     %Vy
-                    [quadrant1y]=subregionVy(1:10, 11:20);%partition 0-90 degree , first quadrant
+                    [quadrant1y]=subregionVy(1:subregion_size/2,  subregion_size/2+1:subregion_size);%partition 0-90 degree , first quadrant
                     quadrant{2,1} = tril(fliplr(quadrant1y));%次对角线的下三角 需先进行翻转
                     quadrant{2,2} = triu(fliplr(quadrant1y));%次对角线的上三角 需先进行翻转                   
-                    [quadrant2y]=subregionVy(1:10, 1:10);%partition 90-180 degree , second quadrant
+                    [quadrant2y]=subregionVy(1:subregion_size/2, 1:subregion_size/2);%partition 90-180 degree , second quadrant
                     quadrant{2,3} = triu(quadrant2y);%主对角线的上三角
                     quadrant{2,4} = tril(quadrant2y);%主对角线的下三角
-                    [quadrant3y]=subregionVy(11:20, 1:10);%partition 180-270 degree , third quadrant
+                    [quadrant3y]=subregionVy( subregion_size/2+1:subregion_size, 1:subregion_size/2);%partition 180-270 degree , third quadrant
                     quadrant{2,5} = triu(fliplr(quadrant3y));%次对角线的上三角 需先进行翻转
                     quadrant{2,6} = tril(fliplr(quadrant3y));%次对角线的下三角
-                    [quadrant4y]=subregionVy(11:20, 11:20);%partition 270-360 degree , fourth quadrant
+                    [quadrant4y]=subregionVy( subregion_size/2+1:subregion_size,  subregion_size/2+1:subregion_size);%partition 270-360 degree , fourth quadrant
                     quadrant{2,7} = tril(quadrant4y);
                     quadrant{2,8} = triu(quadrant4y);
                     
@@ -119,4 +120,4 @@ for i=2:frame_len
     pre_frame=cur_frame;%update the pre_frame
 end
 
-save OpticalFlowFeatures.mat mrf_features;
+save OpticalFlowFeatures_pets.mat mrf_features;
