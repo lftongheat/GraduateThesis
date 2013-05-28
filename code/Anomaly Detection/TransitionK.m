@@ -1,6 +1,5 @@
-function tk = TransitionK(x)
+function tk = TransitionK(x,k)
     tk = 0;
-    k = 0.8;
     if x <= k && x>= 0
         tk = 0.5*x/k;
     end

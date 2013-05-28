@@ -1,11 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %计算时空MRF的输入数据Evidence和Potential%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-load FeaturesPattern_pets.mat;%load data
+load FeaturesPattern.mat;%load data
 
 %%parameter%%
 spaceLen=10;
 tau=0.7;
+kv=0.65;
 %%%%%end%%%%%
 
 [height,width] = size(FeaturesPattern);
@@ -61,9 +62,9 @@ for z=1:framenum
                 sumf = sumf + (freHist{nodeIndex}(1,k)/freHistNorm)*nodePosteriors{nodeIndex}(k,1);
                 sums = sums + (mahalHist{nodeIndex}(1,k)/mahalHistNorm)*nodePosteriors{nodeIndex}(k,1);
             end
-            nf1 = TransitionK(sumf);
+            nf1 = TransitionK(sumf,kv);
             nf0 = 1 - nf1;
-            ns0 = TransitionK(sums);
+            ns0 = TransitionK(sums,kv);
             ns1 = 1 - ns0;
             if ns0 > 0.5
                 ne0 = (1-tau)*nf0 + tau*ns0;
@@ -97,7 +98,7 @@ for z=1:framenum
             end
         end
         
-        pf11 = TransitionK(sum);
+        pf11 = TransitionK(sum,kv);
         pfother = 1 - pf11;
         t1 = nodeDescriptors{nodeIndex1};
         t2 = nodeDescriptors{nodeIndex2};
@@ -122,4 +123,4 @@ for z=1:framenum
     end
 end
 
-save EPdata_pets.mat evidences potentials;
+save EPdata_65.mat evidences potentials;
