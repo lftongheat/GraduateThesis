@@ -1,0 +1,86 @@
+%extract histogram of optical flow features from a video
+%author: tong
+
+clear all;
+
+%read the test video from UNM video dataset
+source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
+
+scene_start = 1;
+scene_end = 1450;
+
+% threshold = ;
+mlen = 4;   nlen = 5;
+pre_frame = read(source, scene_start);%读取第1帧
+pre_frame = rgb2gray(pre_frame);
+frame_size = size(pre_frame);%row:240 col:320
+region_height = frame_size(1)/mlen; %240/4=60
+region_width = frame_size(2)/nlen; %320/5=64
+HOFFeatures = zeros(mlen*nlen*16, scene_end - scene_start);
+
+for k=scene_start+1:scene_end
+    %if (mod(i-1,100) == 0)
+    disp(['frames-----------',num2str(k)]);
+    %end
+    cur_frame = read(source, k);%读取帧
+    cur_frame = rgb2gray(cur_frame);
+    
+    %%compute the features of optical flow by LK method
+    [Vx,Vy] = opticalFlow(pre_frame,cur_frame,'smooth',1,'radius',10,'type','LK');%use piotr_toolbox
+    [speed] = sqrt(Vx.*Vx+Vy.*Vy);%compute the speed
+    angle = zeros(frame_size);
+    
+    for i=1:frame_size(1)
+        for j=1:frame_size(2)
+            degree = atan(Vy(i,j)/Vx(i,j));%compute the degree
+            angle(i,j) = degree*180/pi;%convert to angle 得到的是-90到90度之间的值
+            if (Vx(i,j)<0) %2 3 象限
+                angle(i,j) = angle(i,j) +180;
+            end
+            if (Vx(i,j)>0 && Vy(i,j)<0) % 4象限
+                angle(i,j) = angle(i,j) +360;
+            end
+        end
+    end
+    
+    for m=1:mlen
+        for n=1:nlen
+            HOF = zeros(16,1);
+            rowbegin = (m-1)*region_height+1;rowend = m*region_height;
+            colbegin = (n-1)*region_width+1;colend = n*region_width;
+            [regionVx] = Vx(rowbegin:rowend, colbegin:colend);
+            [regionVy] = Vy(rowbegin:rowend, colbegin:colend);
+            [regionSpeed] = speed(rowbegin:rowend, colbegin:colend);   
+            [regionAngle] = angle(rowbegin:rowend, colbegin:colend);    
+            
+            for i=1:region_height
+                for j=1:region_width
+                    if regionAngle(i,j)>=0 && regionAngle(i,j)<45
+                        HOF(1) = HOF(1) + regionSpeed(i,j);
+                    elseif regionAngle(i,j)>=45 && regionAngle(i,j)<90
+                        HOF(2) = HOF(2) + regionSpeed(i,j);
+                    elseif regionAngle(i,j)>=90 && regionAngle(i,j)<135
+                        HOF(3) = HOF(3) + regionSpeed(i,j);
+                    elseif regionAngle(i,j)>=135 && regionAngle(i,j)<180
+                        HOF(4) = HOF(4) + regionSpeed(i,j);
+                    elseif regionAngle(i,j)>=180 && regionAngle(i,j)<225
+                        HOF(5) = HOF(5) + regionSpeed(i,j);
+                    elseif regionAngle(i,j)>=225 && regionAngle(i,j)<270
+                        HOF(6) = HOF(6) + regionSpeed(i,j);
+                    elseif regionAngle(i,j)>=270 && regionAngle(i,j)<315
+                        HOF(7) = HOF(7) + regionSpeed(i,j);
+                    else regionAngle(i,j)>=315 && regionAngle(i,j)<360;
+                        HOF(8) = HOF(8) + regionSpeed(i,j);
+                    end
+                end
+            end
+            
+            startIndex = (m-1)*16 + (n-1)*16 + ;
+            HOFFeatures(startIndex:startIndex+16,k-1) = HOF;
+        end
+    end    
+    
+    pre_frame=cur_frame;%update the pre_frame
+end
+
+save HOFFeatures_UMN.mat data/HOFFeatures.m;
