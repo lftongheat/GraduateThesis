@@ -1,0 +1,492 @@
+This is e-TeX, Version 3.141592-2.2 (MiKTeX 2.4) (preloaded format=latex 2005.8.7)  24 MAR 2007 15:58
+entering extended mode
+**SparseArch.tex
+(SparseArch.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8g> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, french, loaded.
+(C:\Program Files\MiKTeX2-4\tex\latex\base\book.cls
+Document Class: book 2004/02/16 v1.4f Standard LaTeX document class
+(C:\Program Files\MiKTeX2-4\tex\latex\base\bk11.clo
+File: bk11.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+
+LaTeX Warning: Unused global option(s):
+    [jeep].
+
+(SparseArch.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+ (SparseMacros.tex)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 21.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 21.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 21.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 21.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 21.
+ [1
+
+
+] [2
+
+]
+Chapter 1.
+
+Overfull \hbox (15.23956pt too wide) in paragraph at lines 57--60
+\OT1/cmr/m/n/10.95 Sparse-Lab is and how to get it. The URL is http://sparselab
+.stanford.edu. 
+ []
+
+[3]
+Overfull \hbox (32.9463pt too wide) in paragraph at lines 65--68
+[][]\OT1/cmr/m/it/10.95 SparseLab Main Di-rec-tory. \OT1/cmr/m/n/10.95 A sub-di
+-rec-tory /Sparse-lab200 of the \OT1/cmtt/m/n/10.95 Matlab/work
+ []
+
+
+Overfull \hbox (4.54424pt too wide) in paragraph at lines 72--75
+\OT1/cmr/m/n/10.95 con-tain-ing ped-a-gog-i-cal ex-am-ples that ex-er-cise var-
+i-ous as-pects of Sparse-
+ []
+
+
+Overfull \hbox (10.72371pt too wide) in paragraph at lines 82--86
+\OT1/cmr/m/n/10.95 vers[]DataSupplementExtCS and Sparse-lab-vers[]DataSupplemen
+tStOMP,
+ []
+
+[4]
+Chapter 2.
+
+Overfull \hbox (10.44498pt too wide) in paragraph at lines 98--100
+[]\OT1/cmr/m/n/10.95 We briefly de-scribe the con-tents and ar-chi-tec-ture of 
+the /Sparse-lab200/Papers/
+ []
+
+[5
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 126--129
+
+ []
+
+
+Overfull \hbox (197.62271pt too wide) in paragraph at lines 155--155
+[]  \OT1/cmtt/m/n/10.95 HDCPNPDDemo  - ``High-Dimensional Centrosymmetric Polyt
+opes with Neighborliness Proportional to[] 
+ []
+
+
+Overfull \hbox (180.37665pt too wide) in paragraph at lines 155--155
+[]  \OT1/cmtt/m/n/10.95 MSNVENODemo  - ``Breakdown Point of Model Selection whe
+n the Number of Variables Exceeds the[] 
+ []
+
+
+Overfull \hbox (203.3714pt too wide) in paragraph at lines 155--155
+[]  \OT1/cmtt/m/n/10.95 NPSSULEDemo  - ``Neighborly Polytopes and Sparse Soluti
+ons of Underdetermined Linear Equations''[] 
+ []
+
+
+Overfull \hbox (134.38715pt too wide) in paragraph at lines 155--155
+[]  \OT1/cmtt/m/n/10.95 NRPSHDDemo   - ``Neighborliness of Randomly-Projected S
+implices in High Dimensions''[] 
+ []
+
+
+Overfull \hbox (174.62796pt too wide) in paragraph at lines 155--155
+[]  \OT1/cmtt/m/n/10.95 SNSULELPDemo - ``Sparse Nonnegative Solutions of Underd
+etermined Linear Equations by Linear[] 
+ []
+
+
+Overfull \hbox (180.37665pt too wide) in paragraph at lines 155--155
+[]  \OT1/cmtt/m/n/10.95 StOMPDemo    - ``Sparse Solution of Underdetermined Lin
+ear Equations by Stagewise Orthogonal[] 
+ []
+
+[6] [7]
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 224--224
+[][]\OT1/cmtt/m/n/10.95 % GenFig1 -- ExtCSDemo Figure 1: Error of reconstructio
+n versus[] 
+ []
+
+
+Overfull \hbox (36.65945pt too wide) in paragraph at lines 224--224
+[]\OT1/cmtt/m/n/10.95 % number of samples for signals with a controlled number 
+of nonzeros.[] 
+ []
+
+
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 224--224
+[]\OT1/cmtt/m/n/10.95 % Data files used: DataL0_20.mat, DataL0_50.mat, DataL0_1
+00.mat[] 
+ []
+
+
+Overfull \hbox (12.29633pt too wide) in paragraph at lines 244--244
+ [][]    \OT1/cmtt/m/n/10.95 MyOwnDemo    - starts the Demonstration, invokes C
+hoices[] 
+ []
+
+
+Overfull \hbox (23.7937pt too wide) in paragraph at lines 244--244
+ []    \OT1/cmtt/m/n/10.95 MyOwnIntro   - help file, explains contents of direc
+tories[] 
+ []
+
+[8]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 261.
+
+ (C:\Program Files\MiKTeX2-4\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 261.
+ [9] [10
+
+]
+Chapter 3.
+[11] [12]
+Chapter 4.
+[13
+
+]
+Overfull \hbox (19.41339pt too wide) in paragraph at lines 448--448
+[]    \OT1/cmtt/m/n/10.95 In MATLAB, the command sound(Enrico,8192) will play t
+his sound[] 
+ []
+
+
+Overfull \hbox (13.6647pt too wide) in paragraph at lines 448--448
+[]    \OT1/cmtt/m/n/10.95 developed by R.R. Coifman and Fazal Majid at Yale Uni
+versity.[] 
+ []
+
+[14]
+Overfull \hbox (7.91602pt too wide) in paragraph at lines 470--470
+[]    \OT1/cmtt/m/n/10.95 This image was used in an article by P. Perona and J.
+ Malik,[] 
+ []
+
+
+Overfull \hbox (7.91602pt too wide) in paragraph at lines 470--470
+[]    \OT1/cmtt/m/n/10.95 "Scale-Space Filtering by Anisotropic Diffusions," IE
+E PAMI.[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15]
+[16]
+Chapter 5.
+
+Overfull \hbox (82.64896pt too wide) in paragraph at lines 571--571
+[]\OT1/cmtt/m/n/10.95 %   [sol iters activationHist] = SolveMP(A, b, maxIters, 
+NoiseLevel, verbose)[] 
+ []
+
+
+Overfull \hbox (59.6542pt too wide) in paragraph at lines 571--571
+[]\OT1/cmtt/m/n/10.95 %   A           dictionary (dxn matrix), rank(A) = min(d,
+n) by assumption[] 
+ []
+
+
+Overfull \hbox (36.65945pt too wide) in paragraph at lines 571--571
+[]\OT1/cmtt/m/n/10.95 %   NoiseLevel  estimated norm of noise, default noiseles
+s, i.e. 1e-5[] 
+ []
+
+
+Overfull \hbox (59.6542pt too wide) in paragraph at lines 571--571
+[]\OT1/cmtt/m/n/10.95 %   verbose     1 to print out detailed progress at each 
+iteration, 0 for[] 
+ []
+
+
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 571--571
+[]\OT1/cmtt/m/n/10.95 %    activationHist  Array of indices showing elements en
+tering[] 
+ []
+
+
+Overfull \hbox (25.16208pt too wide) in paragraph at lines 571--571
+[]\OT1/cmtt/m/n/10.95 %   SolveMP implements the greedy pursuit algorithm to es
+timate the[] 
+ []
+
+[17
+
+]
+Overfull \hbox (65.4029pt too wide) in paragraph at lines 571--571
+[]\OT1/cmtt/m/n/10.95 %   Matching Pursuit With Time-Frequency Dictionaries (19
+93) Mallat, Zhang[] 
+ []
+
+[18]
+Overfull \hbox (13.6647pt too wide) in paragraph at lines 645--645
+[][]\OT1/cmtt/m/n/10.95 % ADDINGNEWFEATURES       -  How to Add New Features to
+ SparseLab[] 
+ []
+
+
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 645--645
+[]\OT1/cmtt/m/n/10.95 % BUGREPORT               -  How to report bugs about Spa
+rseLab[] 
+ []
+
+
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 645--645
+[]\OT1/cmtt/m/n/10.95 % DATASTRUCTURES          -  Basic data structures in Spa
+rseLab[] 
+ []
+
+
+Overfull \hbox (36.65945pt too wide) in paragraph at lines 645--645
+[]\OT1/cmtt/m/n/10.95 % GETTINGSTARTED          -  Ideas for getting started wi
+th SparseLab[] 
+ []
+
+
+Overfull \hbox (13.6647pt too wide) in paragraph at lines 645--645
+[]\OT1/cmtt/m/n/10.95 % VERSION                 -  Part of SparseLab Version v$
+VERSION$[] 
+ []
+
+[19]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 709.
+ [20] [21] [22
+
+]
+Chapter 6.
+
+Overfull \hbox (36.65945pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   aconv.m              -   Convolution Tool for Two-Sca
+le Transform[] 
+ []
+
+
+Overfull \hbox (7.91602pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   AutoImage.m          -   Automatic Scaling for Image 
+Display[] 
+ []
+
+
+Overfull \hbox (48.15683pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   DownDyadHi.m         -   Hi-Pass Downsampling operato
+r (periodized)[] 
+ []
+
+
+Overfull \hbox (48.15683pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   DownDyadLo.m         -   Lo-Pass Downsampling operato
+r (periodized)[] 
+ []
+
+
+Overfull \hbox (53.90552pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   dyad.m               -   Index entire j-th dyad of 1-
+d wavelet xform[] 
+ []
+
+
+Overfull \hbox (25.16208pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   dyadlength.m         -   Find length and dyadic lengt
+h of array[] 
+ []
+
+
+Overfull \hbox (94.14633pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   FWT_PO.m             -   Forward Wavelet Transform (p
+eriodized, orthogonal)[] 
+ []
+
+
+Overfull \hbox (76.90027pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   FWT_TI.m             -   translation invariant forwar
+d wavelet transform[] 
+ []
+
+
+Overfull \hbox (36.65945pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   iconv.m              -   Convolution Tool for Two-Sca
+le Transform[] 
+ []
+
+
+Overfull \hbox (94.14633pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   IWT_PO.m             -   Inverse Wavelet Transform (p
+eriodized, orthogonal)[] 
+ []
+
+
+Overfull \hbox (76.90027pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   IWT_TI.m             -   translation invariant forwar
+d wavelet transform[] 
+ []
+
+
+Overfull \hbox (111.3924pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   MakeONFilter.m       -   Generate Orthonormal QMF Fil
+ter for Wavelet Transform[] 
+ []
+
+
+Overfull \hbox (128.63846pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   NormNoise.m          -   Estimates noise level, Norma
+lize signal to noise level 1[] 
+ []
+
+
+Overfull \hbox (88.39764pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   PlotSpikes.m         -   Plot 1-d signal as baseline 
+with series of spikes[] 
+ []
+
+
+Overfull \hbox (48.15683pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   PlotWaveCoeff.m      -   Spike-plot display of wavele
+t coefficients[] 
+ []
+
+
+Overfull \hbox (19.41339pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   RegisterPlot.m       -   Add legend with file name, d
+ate, flag[] 
+ []
+
+[23]
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   reverse.m            -   Reverse order of elements in
+ 1-d signal[] 
+ []
+
+
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   rshift.m             -   Circular right shift of 1-d 
+signal[] 
+ []
+
+
+Overfull \hbox (53.90552pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   ShapeLike.m          -   Reshape first argument like 
+second argument[] 
+ []
+
+
+Overfull \hbox (76.90027pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   TIDenoise.m          -   Translation invariant denois
+ing of a 1-D signal[] 
+ []
+
+
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   UpDyadHi.m           -   Hi-Pass Upsampling operator;
+ periodized[] 
+ []
+
+
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 768--768
+[]\OT1/cmtt/m/n/10.95 %   UpDyadLo.m           -   Lo-Pass Upsampling operator;
+ periodized[] 
+ []
+
+[24]
+Chapter 7.
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 792
+.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 792.
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceright' on input line 792.
+
+
+Overfull \hbox (22.03053pt too wide) in paragraph at lines 791--793
+[][]\OT1/cmr/m/it/10.95 TeX Source \OT1/cmr/m/n/10.95 in a di-rec-tory named \O
+T1/cmtt/m/n/10.95 Documentation \OT1/cmr/m/n/10.95 in-side the \OT1/cmtt/m/n/10
+.95 SparseLab100\OMS/cmsy/m/n/10.95 g
+ []
+
+
+Overfull \hbox (55.86128pt too wide) in paragraph at lines 794--796
+[][]\OT1/cmr/m/it/10.95 Shell Source \OT1/cmtt/m/n/10.95 in a directory named s
+hell[]tools inside the SparseLab100\OMS/cmtt/m/n/10.95 g
+ []
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.796 \end{itemize}
+                   
+? 
+! Missing } inserted.
+<inserted text> 
+                }
+l.796 \end{itemize}
+                   
+? 
+
+Overfull \hbox (65.4029pt too wide) in paragraph at lines 806--806
+[][] \OT1/cmtt/m/n/10.95 append_footer.sh        -   Appends a footer to all no
+n-Contents .m files[] 
+ []
+
+[25
+
+]
+Overfull \hbox (52.13412pt too wide) in paragraph at lines 849--854
+\OT1/cmr/m/n/10.95 Sparse-Lab, two sep-a-rate down-load pack-ages, Sparse-Lab-v
+ers[]DataSupplementExtCS.zip
+ []
+
+[26]
+Chapter 8.
+[27
+
+] [28] (SparseArch.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 390 strings out of 95901
+ 3858 string characters out of 1194826
+ 49467 words of memory out of 1050179
+ 3470 multiletter control sequences out of 60000
+ 11198 words of font info for 39 fonts, out of 1000000 for 2000
+ 14 hyphenation exceptions out of 4999
+ 24i,11n,19p,180b,255s stack positions out of 5000i,500n,10000p,200000b,32768s
+
+Output written on SparseArch.dvi (28 pages, 50040 bytes).
