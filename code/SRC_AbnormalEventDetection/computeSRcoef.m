@@ -1,6 +1,6 @@
-function [X] = computeSRC(Y, A, D, L, sc_algo)
+function [X] = computeSRcoef(Y, A, D, L, sc_algo)
 % ---------------------------------------------------
-% Compute Sparse Representation Cost using Fast Sparse Representation with Prototypes
+% Compute Sparse Representation  using Fast Sparse Representation with Prototypes
 % Functionality: 
 %       Find the approaximated sparse solution x of the linear system y=Ax
 % Dimension: m  --- number of measurement
@@ -50,7 +50,7 @@ for i = 1: Nte
     
     % sparse coding: solve a reduced linear system
     xpReduced = sparse_coding_methods(xInit(releventPosition), WA_reduced, w_y, sc_algo);
-
+    
     xp(releventPosition)=xpReduced;
    
     X(:, i) = xp;

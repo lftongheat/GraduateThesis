@@ -31,14 +31,14 @@ param.L = 10;                                   % The number of atoms used in re
 param.InitializationMethod =  'DataElements';   % Initialize a dictionary with random sampling
 param.errorFlag = 0;                            % Decompose signal without reaching an error bound
 %param.K = redundencyFactor*size(trainSample,1); % The number of atoms in the dictionary
-param.K = 200;
+param.K = size(trainSample, 2);
 param.numIteration = 5;                         % The number iteration for the K-SVD algorithm 
 param.preserveDCAtom = 0;                       % Presearve a DC atom or not
 param.displayProgress= 1;                       % Display the progress and the error at each iteration
 
 % K-SVD dictionary learning
 fprintf('K-SVD dictionary learning...\n');
-[Dictionary,output] = KSVD(trainSample, param);
+[Dictionary,output] = KSVD(trainSample, param); 
 
 %% Compute Sparse Reconstruction Cost using l1 minimization
 
@@ -47,15 +47,18 @@ FastSparseCodingFag = 1;    % Use fast sparse coding
 fprintf('Solving sparse coding...\n');
 
 if(FastSparseCodingFag)
-    [X] = computeSRC(testSample, trainSample, Dictionary, param.L, sc_algo);
+    [energy, offset] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
 end
 
+%% graph show about the analysis result
+
+
 %% 
-for i=1:1049
-    stem(X(:,i));
-    axis([0,400, -50, 50]);
-    title('coefficient graph');
-    framenum = ['frame ',num2str(i+400)];
-    xlabel(framenum);
-    pause;
-end
+% for i=1:1049
+%     stem(X(:,i));
+%     axis([0,400, -50, 50]);
+%     title('coefficient graph');
+%     framenum = ['frame ',num2str(i+400)];
+%     xlabel(framenum);
+%     pause;
+% end
