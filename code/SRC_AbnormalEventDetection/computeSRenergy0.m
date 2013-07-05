@@ -1,6 +1,6 @@
-function [X] = computeSRcoef(Y, A, D, L, sc_algo)
+function [energy, offset, avgTime] = computeSRenergy0(Y, A, D, sc_algo)
 % ---------------------------------------------------
-% Compute Sparse Representation  using Fast Sparse Representation with Prototypes
+% Compute Sparse Representation Energy 
 % Functionality: 
 %       Find the approaximated sparse solution x of the linear system y=Ax
 % Dimension: m  --- number of measurement
@@ -10,12 +10,9 @@ function [X] = computeSRcoef(Y, A, D, L, sc_algo)
 %                   Dimension          Description
 % input:  Y          m x Nte       --- the testing sample
 %         A          m x Ntr       --- the training sample
-%         D          m x K         --- the learned dictionary
-%         L                        --- the number of atoms in OMP
 %         sc_algo                  --- the sparse coding algorithm
 %                            e.g., l1magic, SparseLab, fast_sc, SL0, YALL1
 % output: X          K x Nte       --- the sparse coefficient matrix of Y
-%         accuracy                 --- accuracy of the classification task
 %         avgTime                  --- average runtime for sparse coding
 % 
 % Reference: Jia-Bin Huang and Ming-Hsuan Yang, "Fast Sparse Representation with Prototypes.", the 23th IEEE Conference
@@ -25,36 +22,33 @@ function [X] = computeSRcoef(Y, A, D, L, sc_algo)
 
 
 Nte = size(Y, 2);
-Ntr = size(A, 2);
+%Ntr = size(A, 2);
 
-X = zeros(Ntr, Nte);
-
-% Compute the new representation of A as WA
-WA = OMP(D, A, L);
-
-% Compute the new representation of Y as WY
-WY = OMP(D, Y, L);
+energy = zeros(Nte, 1);
+offset = zeros(Nte, 1);
 
 % Compute the sparse representation X
 Ainv = pinv(A);
+sumTime=0;
 for i = 1: Nte
     % Inital guess
-    xInit = Ainv * Y(:,i);
-    xp = zeros(Ntr,1);
-    
-    % new representation of the test sample y
-    w_y = WY(:,i);
-    
-    % keep columns with a least one overlapped support and dicard the rest
-    [WA_reduced, releventPosition] = reduceMatrix(w_y, WA);
+    y = Y(:,i);
+    xInit = Ainv * y;
     
     % sparse coding: solve a reduced linear system
-    xpReduced = sparse_coding_methods(xInit(releventPosition), WA_reduced, w_y, sc_algo);
+    disp(['sparse coding ...',num2str(i)]);
+    tic
+    xp = sparse_coding_methods(xInit, A, y, sc_algo);
+    t = toc;
+    sumTime = sumTime+t;
     
-    xp(releventPosition)=xpReduced;
-   
-    X(:, i) = xp;
+    %计算恢复后的值与初始猜测值的2范式即欧几里德范数 表示偏差或偏离度
+    offset(i,:) = norm(xp-xInit);
+    
+    %计算稀疏重建的能量值（根据能量计算公式： Energy = 1/2*norm(y-D*xp)*norm(y-D*xp) + lamda*norm(xp,1)）
+    energy(i,:) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
     
 end
+avgTime=sumTime/Nte;
 
 end

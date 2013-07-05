@@ -43,16 +43,26 @@ fprintf('K-SVD dictionary learning...\n');
 %% Compute Sparse Reconstruction Cost using l1 minimization
 
 sc_algo= 'l1magic';         % Select one sparse coding method
-FastSparseCodingFag = 1;    % Use fast sparse coding
+FastSparseCodingFag = 0;    % Use fast sparse coding
 fprintf('Solving sparse coding...\n');
 
 if(FastSparseCodingFag)
-    [energy, offset] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
+    [energy, offset, avgTime] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
+else
+    [energy, offset, avgTime] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
 end
 
+% energy = [zeros(400,1);energy];
+% offset = [zeros(400,1);offset];
 %% graph show about the analysis result
-
-
+label = {'401','601','801','1001','1201','1401','1601'};
+figure(1)
+subplot(2,1,1), plot(energy,'r')
+title('sparse representation energy'),xlabel('energy')
+set(gca,'xticklabel', label);
+subplot(2,1,2), plot(offset,'b')
+title('sparse representation offset'),xlabel('offset')
+set(gca,'xticklabel', label);
 %% 
 % for i=1:1049
 %     stem(X(:,i));
