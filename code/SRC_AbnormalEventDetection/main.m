@@ -11,17 +11,29 @@ addpath(genpath('tools/'));
 % dataset
 % UNM: scene1
 
-load data/HOFFeatures_umn_scene1_0.8.mat;
-
+%load data/HOFFeatures_umn_scene1_0.8.mat;
+%load data/HOFFeatures_umn_scene2_0.8.mat;
+load data/HOFFeatures_umn_scene3_0.8.mat;
 
 % Normalization: normalize all samples with zero mean and unit variance
 HOFFeaturesAvg = mean(HOFFeatures,1);
 HOFFeatures = HOFFeatures-ones(size(HOFFeatures,1),1)*HOFFeaturesAvg;
 HOFFeaturesNorm = sqrt( sum(HOFFeatures.^2,1) );
 HOFFeatures = HOFFeatures./ (ones(size(HOFFeatures,1),1)*HOFFeaturesNorm);
-        
-trainSample = HOFFeatures(:,1:400);     %320*400
-testSample = HOFFeatures(:,401:1449);   %320*1049
+
+%scene1
+% scene_start = 1;
+% scene_end = 1449;
+%scene2
+% scene_start = 1451;
+% scene_end = 5594;
+%scene1
+scene_start = 5596;
+scene_end = 7738;
+
+%
+trainSample = HOFFeatures(:,scene_start:scene_start+400);     %320*400
+testSample = HOFFeatures(:,scene_start+401:scene_end);   %320*
 
 %% Learning dictionary from the training samples
 
@@ -43,7 +55,7 @@ fprintf('K-SVD dictionary learning...\n');
 %% Compute Sparse Reconstruction Cost using l1 minimization
 
 sc_algo= 'l1magic';         % Select one sparse coding method
-FastSparseCodingFag = 0;    % Use fast sparse coding
+FastSparseCodingFag = 1;    % Use fast sparse coding
 fprintf('Solving sparse coding...\n');
 
 if(FastSparseCodingFag)
@@ -55,14 +67,16 @@ end
 % energy = [zeros(400,1);energy];
 % offset = [zeros(400,1);offset];
 %% graph show about the analysis result
-label = {'401','601','801','1001','1201','1401','1601'};
+label1 = {'401','601','801','1001','1201','1401','1601'};
+label2 = {'1451','1951','2451','2951','3451','3951','4451','4951','5451'};
+label3 = {'5596','6096','6596','7096','7596','8096'};
 figure(1)
 subplot(2,1,1), plot(energy,'r')
 title('sparse representation energy'),xlabel('energy')
-set(gca,'xticklabel', label);
+set(gca,'xticklabel', label3);
 subplot(2,1,2), plot(offset,'b')
 title('sparse representation offset'),xlabel('offset')
-set(gca,'xticklabel', label);
+set(gca,'xticklabel', label3);
 %% 
 % for i=1:1049
 %     stem(X(:,i));

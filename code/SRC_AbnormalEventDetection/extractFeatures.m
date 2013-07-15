@@ -4,12 +4,15 @@
 clear all;
 
 %read the test video from UNM video dataset
+%scene1: 1    ---- 1450
+%scene2: 1451 ---- 5595
+%scene3: 5596 ---- 7739
 source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
 
 %parameters
-scene_start = 1;
-scene_end = 1450;
-threshold = 0.4;
+scene_start = 5596;
+scene_end = 7739;
+threshold = 0.8;
 mlen = 4;   nlen = 5;
 pre_frame = read(source, scene_start);%读取第1帧
 pre_frame = rgb2gray(pre_frame);
@@ -118,4 +121,4 @@ for k=scene_start+1:scene_end
     pre_frame=cur_frame;%update the pre_frame
 end
 
-save data\HOFFeatures_umn_scene1_0.4.mat HOFFeatures;
+save data\HOFFeatures_umn_scene3_0.8.mat HOFFeatures;
