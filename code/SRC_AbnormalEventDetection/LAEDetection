@@ -1,0 +1,16 @@
+%% Local Abnormal Event Detection
+%UCSD Ped1 Dataset 
+%The training set contains 34 short chips for learning of normal patterns
+%The testing set contains 10 clips provided with abnormal events
+%Each clip has 200 frames with a 158*238 resolution
+
+%% Add path
+addpath(genpath('tools/'));
+
+%% Extract Features
+
+
+
+%%
+
+

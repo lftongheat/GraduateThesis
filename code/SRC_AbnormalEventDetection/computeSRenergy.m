@@ -62,7 +62,7 @@ for i = 1: Nte
     offset(i,:) = norm(xp-xInit);
     
     %计算稀疏重建的能量值（根据能量计算公式： Energy = 1/2*norm(y-D*xp)*norm(y-D*xp) + lamda*norm(xp,1)）
-    energy(i,:) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
+    %energy(i,:) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
     
     
 end

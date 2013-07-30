@@ -11,9 +11,9 @@ addpath(genpath('tools/'));
 % dataset
 % UNM: scene1
 
-%load data/HOFFeatures_umn_scene1_0.8.mat;
+load data/HOFFeatures_umn_scene1_0.8.mat;
 %load data/HOFFeatures_umn_scene2_0.8.mat;
-load data/HOFFeatures_umn_scene3_0.8.mat;
+% load data/HOFFeatures_umn_scene3_0.8.mat;
 
 % Normalization: normalize all samples with zero mean and unit variance
 HOFFeaturesAvg = mean(HOFFeatures,1);
@@ -22,18 +22,19 @@ HOFFeaturesNorm = sqrt( sum(HOFFeatures.^2,1) );
 HOFFeatures = HOFFeatures./ (ones(size(HOFFeatures,1),1)*HOFFeaturesNorm);
 
 %scene1
-% scene_start = 1;
-% scene_end = 1449;
+scene_start = 1;
+scene_end = 1449;
 %scene2
 % scene_start = 1451;
 % scene_end = 5594;
 %scene1
-scene_start = 5596;
-scene_end = 7738;
+% scene_start = 5596;
+% scene_end = 7738;
 
 %
 trainSample = HOFFeatures(:,scene_start:scene_start+400);     %320*400
-testSample = HOFFeatures(:,scene_start+401:scene_end);   %320*
+%testSample = HOFFeatures(:,scene_start+401:scene_end);   %320*
+testSample = HOFFeatures(:,scene_start:scene_end);   %320*
 
 %% Learning dictionary from the training samples
 
@@ -73,10 +74,10 @@ label3 = {'5596','6096','6596','7096','7596','8096'};
 figure(1)
 subplot(2,1,1), plot(energy,'r')
 title('sparse representation energy'),xlabel('energy')
-set(gca,'xticklabel', label3);
+%set(gca,'xticklabel', label3);
 subplot(2,1,2), plot(offset,'b')
 title('sparse representation offset'),xlabel('offset')
-set(gca,'xticklabel', label3);
+%set(gca,'xticklabel', label3);
 %% 
 % for i=1:1049
 %     stem(X(:,i));
