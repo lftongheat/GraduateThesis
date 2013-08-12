@@ -12,7 +12,7 @@ addpath(genpath('tools/'));
 % UNM: scene1
 
 load data/HOFFeatures_umn_scene1_0.8.mat;
-%load data/HOFFeatures_umn_scene2_0.8.mat;
+% load data/HOFFeatures_umn_scene2_0.8.mat;
 % load data/HOFFeatures_umn_scene3_0.8.mat;
 
 % Normalization: normalize all samples with zero mean and unit variance
@@ -60,23 +60,23 @@ FastSparseCodingFag = 1;    % Use fast sparse coding
 fprintf('Solving sparse coding...\n');
 
 if(FastSparseCodingFag)
-    [energy, offset, avgTime] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
+    [energy, energyReduce, avgTime] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
 else
-    [energy, offset, avgTime] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
+    %[energyReduce, energy, avgTime] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
 end
 
-% energy = [zeros(400,1);energy];
+% energyReduce = [zeros(400,1);energyReduce];
 % offset = [zeros(400,1);offset];
 %% graph show about the analysis result
-label1 = {'401','601','801','1001','1201','1401','1601'};
+label1 = {'481','610','1001','1300','1438'};
 label2 = {'1451','1951','2451','2951','3451','3951','4451','4951','5451'};
 label3 = {'5596','6096','6596','7096','7596','8096'};
 figure(1)
 subplot(2,1,1), plot(energy,'r')
 title('sparse representation energy'),xlabel('energy')
-%set(gca,'xticklabel', label3);
-subplot(2,1,2), plot(offset,'b')
-title('sparse representation offset'),xlabel('offset')
+% set(gca,'xticklabel', label1);
+subplot(2,1,2), plot(energyReduce,'b')
+title('sparse representation energyReduce'),xlabel('energyReduce')
 %set(gca,'xticklabel', label3);
 %% 
 % for i=1:1049

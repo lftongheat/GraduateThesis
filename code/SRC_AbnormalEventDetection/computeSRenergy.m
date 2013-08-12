@@ -1,4 +1,4 @@
-function [energy, offset, avgTime] = computeSRenergy( Y, A, D, L, sc_algo )
+function [energy, energyReduce, avgTime] = computeSRenergy( Y, A, D, L, sc_algo )
 % ---------------------------------------------------
 % Compute Sparse Representation Energy using Fast Sparse Representation with Prototypes
 % Functionality: 
@@ -27,12 +27,12 @@ Nte = size(Y, 2);
 Ntr = size(A, 2);
 
 energy = zeros(Nte, 1);
-offset = zeros(Nte, 1);
+energyReduce = zeros(Nte, 1);
 
-% Compute the new representation of A as WA
+% Compute the new representation of A as WA （A是训练集）
 WA = OMP(D, A, L);
 
-% Compute the new representation of Y as WY
+% Compute the new representation of Y as WY （Y是测试集）
 WY = OMP(D, Y, L);
 
 % Compute the sparse representation X
@@ -56,15 +56,12 @@ for i = 1: Nte
     t = toc;
     sumTime = sumTime+t;
     
-    xp(releventPosition)=xpReduced;
-    
-    %计算恢复后的值与初始猜测值的2范式即欧几里德范数 表示偏差或偏离度
-    offset(i,:) = norm(xp-xInit);
+    xp(releventPosition)=xpReduced;    
     
     %计算稀疏重建的能量值（根据能量计算公式： Energy = 1/2*norm(y-D*xp)*norm(y-D*xp) + lamda*norm(xp,1)）
-    %energy(i,:) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
+    energy(i,:) = 1/2*norm(y-D*xInit)*norm(y-D*xInit) + norm(xInit,1);
     
-    
+    energyReduce(i,:) = 1/2*norm(w_y-WA_reduced*xpReduced)*norm(w_y-WA_reduced*xpReduced) + norm(xpReduced,1);
 end
 avgTime=sumTime/Nte;
 
