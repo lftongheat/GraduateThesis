@@ -62,6 +62,8 @@ for i = 1: Nte
     energy(i,:) = 1/2*norm(y-D*xInit)*norm(y-D*xInit) + norm(xInit,1);
     
     energyReduce(i,:) = 1/2*norm(w_y-WA_reduced*xpReduced)*norm(w_y-WA_reduced*xpReduced) + norm(xpReduced,1);
+    
+    disp([num2str(i+400), 'energy:', num2str(energy(i,:)), '    energyReduce:', num2str(energyReduce(i,:))]);
 end
 avgTime=sumTime/Nte;
 

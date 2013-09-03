@@ -12,9 +12,11 @@ addpath(genpath('tools/'));
 % UNM: scene1
 
 load data/HOFFeatures_umn_scene1_0.8.mat;
+disp('load data');
 % load data/HOFFeatures_umn_scene2_0.8.mat;
 % load data/HOFFeatures_umn_scene3_0.8.mat;
 
+disp('Normalization');
 % Normalization: normalize all samples with zero mean and unit variance
 HOFFeaturesAvg = mean(HOFFeatures,1);
 HOFFeatures = HOFFeatures-ones(size(HOFFeatures,1),1)*HOFFeaturesAvg;
