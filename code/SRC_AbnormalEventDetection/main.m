@@ -61,31 +61,52 @@ sc_algo= 'l1magic';         % Select one sparse coding method
 FastSparseCodingFag = 1;    % Use fast sparse coding
 fprintf('Solving sparse coding...\n');
 
-if(FastSparseCodingFag)
-    [energy, energyReduce, avgTime] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
-else
-    %[energyReduce, energy, avgTime] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
+% if(FastSparseCodingFag)
+%     [energyReduce, avgTime] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
+% else
+%     [energy, avgTime] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
+% end
+
+%run the common sparse coding
+[energy, avgTime0] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
+%run the fast sparse coding
+%[energyReduce, avgTime] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
+
+% smooth
+[energy] = smoothEnergy(energy);
+%[energyReduce] = smoothEnergy(energyReduce);
+
+disp('click enter to draw the energy curve');
+pause;
+
+%%
+len = size(energy,1);
+average = mean(energy);
+k=1;
+for i=1:len
+    if(energy(i)>average)
+        abnormalX(k) = i;
+        abnormalY(k)=energy(i);
+        k=k+1;
+    end
 end
 
 % energyReduce = [zeros(400,1);energyReduce];
 % offset = [zeros(400,1);offset];
+
 %% graph show about the analysis result
-label1 = {'481','610','1001','1300','1438'};
-label2 = {'1451','1951','2451','2951','3451','3951','4451','4951','5451'};
-label3 = {'5596','6096','6596','7096','7596','8096'};
-figure(1)
-subplot(2,1,1), plot(energy,'r')
-title('sparse representation energy'),xlabel('energy')
+% label1 = {'481','610','1001','1300','1438'};
+% label2 = {'1451','1951','2451','2951','3451','3951','4451','4951','5451'};
+% label3 = {'5596','6096','6596','7096','7596','8096'};
+%figure(1)
+% subplot(2,1,1), plot(energy,'r')
+% title('sparse representation energy'),xlabel('energy')
 % set(gca,'xticklabel', label1);
-subplot(2,1,2), plot(energyReduce,'b')
-title('sparse representation energyReduce'),xlabel('energyReduce')
+%subplot(2,1,2), plot(energyReduce,'-b')
+%title('sparse representation energyReduce'),xlabel('energyReduce')
 %set(gca,'xticklabel', label3);
+
+
 %% 
-% for i=1:1049
-%     stem(X(:,i));
-%     axis([0,400, -50, 50]);
-%     title('coefficient graph');
-%     framenum = ['frame ',num2str(i+400)];
-%     xlabel(framenum);
-%     pause;
-% end
+figure;
+plot(X, energy,'b', abnormalX, abnormalY, '.r');

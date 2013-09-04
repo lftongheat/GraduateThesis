@@ -1,4 +1,4 @@
-function [energy, offset, avgTime] = computeSRenergy0(Y, A, D, sc_algo)
+function [energy, avgTime] = computeSRenergy0(Y, A, D, sc_algo)
 % ---------------------------------------------------
 % Compute Sparse Representation Energy 
 % Functionality: 
@@ -25,7 +25,7 @@ Nte = size(Y, 2);
 %Ntr = size(A, 2);
 
 energy = zeros(Nte, 1);
-offset = zeros(Nte, 1);
+
 
 % Compute the sparse representation X
 Ainv = pinv(A);
@@ -36,18 +36,18 @@ for i = 1: Nte
     xInit = Ainv * y;
     
     % sparse coding: solve a reduced linear system
-    disp(['sparse coding ...',num2str(i)]);
+    %disp(['sparse coding ...',num2str(i)]);
     tic
     xp = sparse_coding_methods(xInit, A, y, sc_algo);
     t = toc;
     sumTime = sumTime+t;
     
     %计算恢复后的值与初始猜测值的2范式即欧几里德范数 表示偏差或偏离度
-    offset(i,:) = norm(xp-xInit);
+    %offset(i,:) = norm(xp-xInit);
     
     %计算稀疏重建的能量值（根据能量计算公式： Energy = 1/2*norm(y-D*xp)*norm(y-D*xp) + lamda*norm(xp,1)）
     energy(i,:) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
-    
+    disp(['frame', num2str(i+400), '    energy:', num2str(energy(i,:))]);
 end
 avgTime=sumTime/Nte;
 
