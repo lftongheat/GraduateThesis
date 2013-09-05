@@ -1,0 +1,37 @@
+函数
+% max-sum
+
+[MAPInds MaxVal converge] = BPMex(evidence, linkage, potential, true); 
+
+% sum-product
+
+[Marginals converge] = BPMex(evidence, linkage, potential, false);
+
+输入：
+evidence：n*1维的cell向量
+	每一个cell对应于图中的节点(n个节点)
+	每一个cell为s*1维的向量
+	每个s为每个节点的状态向量
+
+linkage：m*1维的cell向量
+	每一个cell对应于图中的边（m个边）
+	每一个cell为1*2维的，如[0,1],表示节点0和节点1被这个边链接
+
+potential：m*1维的cell向量
+	对应于图中m个边
+	每一个cell为s1*s2维矩阵，s1和s2分别为节点1和节点2的状态数
+	例子：如果linkage{i} = [0 5], 并且potential{i}(3,2) = 0.04，
+	      那么节点0的状态3与节点5的状态2的成对势能值为0.04
+
+alg_flag: true --> max-sum, false --> sum-product (BP算法选择参数)
+
+输出：
+
+% max-sum
+MAPInds： 每个节点的MAP状态值（n*1维向量）
+MaxVal：最优的cost
+converge：convergence标记 （bool值）
+
+
+EG:
+>> [MAPInds MaxVal converge] = BPMRFMex(evidences, potentials); 

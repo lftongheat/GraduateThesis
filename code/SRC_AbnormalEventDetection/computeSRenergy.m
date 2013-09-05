@@ -23,10 +23,16 @@ function [energyReduce, avgTime] = computeSRenergy( Y, A, D, L, sc_algo )
 % Contact: For any questions, email me by jbhuang@ieee.org
 % ---------------------------------------------------
 
+%%
+source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
+textColor    = [255, 0, 0]; % [red, green, blue]
+textLocation = [50 50];       % [x y] coordinates
+textInserter = vision.TextInserter('Warning!', ...
+   'Color', textColor, 'FontSize', 24, 'Location', textLocation);
+%%
 Nte = size(Y, 2);
 Ntr = size(A, 2);
 
-energy = zeros(Nte, 1);
 energyReduce = zeros(Nte, 1);
 
 % Compute the new representation of A as WA （A是训练集）
@@ -63,10 +69,23 @@ for i = 1: Nte
     
     energyReduce(i,:) = 1/2*norm(w_y-WA_reduced*xpReduced)*norm(w_y-WA_reduced*xpReduced) + norm(xpReduced,1);
     
-    disp(['frame', num2str(i+400), '    energyReduce:', num2str(energyReduce(i,:))]);
-%     disp(['frame', num2str(i+400), '    ', 'energy:', num2str(energy(i,:)), '    energyReduce:', num2str(energyReduce(i,:))]);
+    disp(['frame', num2str(i), '    energyReduce:', num2str(energyReduce(i,:))]);
+	
+    %draw frame
+    if i > 10
+        fr = read(source , i);% 读取帧
+        [energyReduce] = smoothEnergy(energyReduce);
+        average = mean(energyReduce(1:i,1))
+        if energyReduce(i) > 5*average
+            J = step(textInserter, fr);
+            imshow(J);
+        else
+            imshow(fr);
+        end
+        drawnow;
+    end;
 end
 avgTime=sumTime/Nte;
-
+clear source;
 end
 

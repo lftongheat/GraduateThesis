@@ -22,12 +22,17 @@ function [energy, avgTime] = computeSRenergy0(Y, A, D, sc_algo)
 
 
 Nte = size(Y, 2);
-%Ntr = size(A, 2);
-
 energy = zeros(Nte, 1);
 
+%%
+source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
+textColor    = [255, 0, 0]; % [red, green, blue]
+textLocation = [50 50];       % [x y] coordinates
+textInserter = vision.TextInserter('Warning!', ...
+   'Color', textColor, 'FontSize', 24, 'Location', textLocation);
 
-% Compute the sparse representation X
+
+%% Compute the sparse representation X
 Ainv = pinv(A);
 sumTime=0;
 for i = 1: Nte
@@ -46,9 +51,24 @@ for i = 1: Nte
     %offset(i,:) = norm(xp-xInit);
     
     %计算稀疏重建的能量值（根据能量计算公式： Energy = 1/2*norm(y-D*xp)*norm(y-D*xp) + lamda*norm(xp,1)）
-    energy(i,:) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
-    disp(['frame', num2str(i+400), '    energy:', num2str(energy(i,:))]);
+    energy(i,1) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
+    disp(['frame', num2str(i), '    energy:', num2str(energy(i,1))]);
+    
+    %draw frame
+    if i > 10
+        fr = read(source , i);% 读取帧
+        [energy] = smoothEnergy(energy);
+        average = mean(energy(1:i,1))
+        if energy(i) > 5*average
+            J = step(textInserter, fr);
+            imshow(J);
+        else
+            imshow(fr);
+        end
+        drawnow;
+    end;
+    
 end
 avgTime=sumTime/Nte;
-
+clear source;
 end
