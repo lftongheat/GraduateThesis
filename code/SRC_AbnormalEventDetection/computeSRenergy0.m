@@ -1,4 +1,4 @@
-function [energy, avgTime] = computeSRenergy0(Y, A, D, sc_algo)
+function [energy, avgTime, abnormalframe] = computeSRenergy0(Y, A, D, sc_algo, scene_start )
 % ---------------------------------------------------
 % Compute Sparse Representation Energy 
 % Functionality: 
@@ -23,6 +23,7 @@ function [energy, avgTime] = computeSRenergy0(Y, A, D, sc_algo)
 
 Nte = size(Y, 2);
 energy = zeros(Nte, 1);
+abnormalframe = zeros(Nte, 2);
 
 %%
 source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
@@ -34,7 +35,15 @@ textInserter = vision.TextInserter('Warning!', ...
 
 %% Compute the sparse representation X
 Ainv = pinv(A);
+if scene_start < 100
+	train_num = 400;
+else
+    train_num = 310;
+end
+w = 5;
 sumTime=0;
+Threshold = 0;
+abnormalscene_num = 0;
 for i = 1: Nte
     % Inital guess
     y = Y(:,i);
@@ -52,22 +61,45 @@ for i = 1: Nte
     
     %计算稀疏重建的能量值（根据能量计算公式： Energy = 1/2*norm(y-D*xp)*norm(y-D*xp) + lamda*norm(xp,1)）
     energy(i,1) = 1/2*norm(y-D*xp)*norm(y-D*xp) + norm(xp,1);
-    disp(['frame', num2str(i), '    energy:', num2str(energy(i,1))]);
     
+    frame_num = scene_start + i - 1;
+    disp(['frame', num2str(frame_num), '    energy:', num2str(energy(i,1))]);
+    
+    if i == train_num + 5
+        Threshold = mean(energy(train_num + 1:i,1));
+    end    
     %draw frame
-    if i > 10
-        fr = read(source , i);% 读取帧
+    if i <= train_num + 5
+        fr = read(source , frame_num);% 读取帧
+        imshow(fr);
+        drawnow;
+    end
+    if i > train_num + 5
+        fr = read(source , frame_num);% 读取帧
         [energy] = smoothEnergy(energy);
-        average = mean(energy(1:i,1))
-        if energy(i) > 5*average
-            J = step(textInserter, fr);
-            imshow(J);
+        old = Threshold;
+        Threshold = (Threshold*(i-1) + energy(i))/i;%加入当前帧的能量值
+        if energy(i) > w*Threshold
+            abnormalscene_num = abnormalscene_num + 1;
+            if abnormalscene_num > 3 %需保证至少连续四帧异常时才报警
+                J = step(textInserter, fr);
+                imshow(J);
+            else
+                imshow(fr);
+            end
+            
+            %如果判定为异常帧 则减去当前帧的能量值 阀值不变
+            Threshold = old;
+            abnormalframe(i,1) = i;
+            abnormalframe(i,2) = energy(i);
         else
             imshow(fr);
+            abnormalscene_num = 0;
         end
         drawnow;
     end;
     
+    disp(['Threshold----', num2str(Threshold)]);
 end
 avgTime=sumTime/Nte;
 clear source;

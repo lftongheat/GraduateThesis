@@ -1,3 +1,4 @@
+function null = main()
 %---------
 
 %---------
@@ -68,25 +69,21 @@ fprintf('Solving sparse coding...\n');
 % end
 
 %run the common sparse coding
-[energy, avgTime0] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
+[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
 %run the fast sparse coding
-%[energy, avgTime] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
+%[energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
 
 disp('click enter to draw the energy curve');
 pause;
 
-%%
+%% 
 len = size(energy,1);
-average = mean(energy);
-k=1;
-for i=1:len
-    if(energy(i)>average)
-        abnormalX(k) = i;
-        abnormalY(k)=energy(i);
-        k=k+1;
-    end
-end
+[X]=1:len;
+figure;
+plot(X, energy,'b', abnormalframe(:,1), abnormalframe(:,2), '.r');
 
+end
+%%
 % energyReduce = [zeros(400,1);energyReduce];
 % offset = [zeros(400,1);offset];
 
@@ -102,8 +99,3 @@ end
 %title('sparse representation energyReduce'),xlabel('energyReduce')
 %set(gca,'xticklabel', label3);
 
-
-%% 
-[X]=1:len;
-figure;
-plot(X, energy,'b', abnormalX, abnormalY, '.r');
