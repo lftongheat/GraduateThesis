@@ -1,4 +1,4 @@
-function [energyReduce, avgTime, abnormalframe] = computeSRenergy( Y, A, D, L, sc_algo, scene_start )
+function [energyReduce, avgTime, abnormalframe] = computeSRenergy( Y, A, D, L, sc_algo, train_num, scene_start )
 % ---------------------------------------------------
 % Compute Sparse Representation Energy using Fast Sparse Representation with Prototypes
 % Functionality: 
@@ -26,9 +26,9 @@ function [energyReduce, avgTime, abnormalframe] = computeSRenergy( Y, A, D, L, s
 %%
 source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
 textColor    = [255, 0, 0]; % [red, green, blue]
-textLocation = [50 50];       % [x y] coordinates
+textLocation = [90 70];       % [x y] coordinates
 textInserter = vision.TextInserter('Warning!', ...
-   'Color', textColor, 'FontSize', 24, 'Location', textLocation);
+   'Color', textColor, 'FontSize', 30, 'Location', textLocation);
 %%
 Nte = size(Y, 2);
 Ntr = size(A, 2);
@@ -43,12 +43,10 @@ WY = OMP(D, Y, L);
 
 % Compute the sparse representation X
 Ainv = pinv(A);
-if scene_start < 100
-	train_num = 400;
-else
-    train_num = 310;
-end
 w = 5;
+if scene_start == 5600
+    w = 3;
+end
 sumTime=0;
 Threshold = 0;
 abnormalscene_num = 0;

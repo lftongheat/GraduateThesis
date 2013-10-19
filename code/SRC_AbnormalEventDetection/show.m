@@ -96,12 +96,15 @@ addpath(genpath('tools/'));
 % dataset
 % UNM: scene1
 disp('load data');
-if scene == 1
+switch scene  
+  case 1
     load data/HOFFeatures_umn_scene1_0.8.mat;
-else
+  case 2
     load data/HOFFeatures_umn_scene2_0.8.mat;
-end
-% load data/HOFFeatures_umn_scene3_0.8.mat;
+  case 3
+    load data/HOFFeatures_umn_scene3_0.8.mat;
+  otherwise
+end 
 
 disp('Normalization');
 % Normalization: normalize all samples with zero mean and unit variance
@@ -111,28 +114,28 @@ HOFFeaturesNorm = sqrt( sum(HOFFeatures.^2,1) );
 HOFFeatures = HOFFeatures./ (ones(size(HOFFeatures,1),1)*HOFFeaturesNorm);
 
 train_num = 400;
-if scene == 1
-    %scene1
+switch scene  
+  case 1
     scene_start = 1;
     scene_end = 1449;
-else 
-    %scene2
+  case 2
     scene_start = 1455;
     scene_end = 5594;
     train_num = 310;
-end
-%scene1
-% scene_start = 5596;
-% scene_end = 7738;
+  case 3
+    scene_start = 5600;
+    scene_end = 7738;
+  otherwise
+end 
 
 %
-trainSample = HOFFeatures(:,scene_start:scene_start+train_num);     %320*400
+trainSample = HOFFeatures(:,scene_start:scene_start+train_num-1);     %320*400
 testSample = HOFFeatures(:,scene_start:scene_end);   %320*
 
 %% Learning dictionary from the training samples
 
 % Parameters for dictionary learning
-redundencyFactor = 2;                           % The number of the atoms = data dimension x redundencyFactor 
+%redundencyFactor = 2;                           % The number of the atoms = data dimension x redundencyFactor 
 param.L = 10;                                   % The number of atoms used in representation a signal
 param.InitializationMethod =  'DataElements';   % Initialize a dictionary with random sampling
 param.errorFlag = 0;                            % Decompose signal without reaching an error bound
@@ -153,10 +156,10 @@ fprintf('Solving sparse coding...\n');
 
 if fast == 0
 %run the common sparse coding
-[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, scene_start);
+[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, train_num, scene_start);
 else
 %run the fast sparse coding
-[energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo, scene_start);
+[energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo,train_num, scene_start);
 end
 
 disp('click enter to draw the energy curve');
@@ -166,6 +169,9 @@ len = size(energy,1);
 [X]=1:len;
 figure;
 plot(X, energy,'b', abnormalframe(:,1), abnormalframe(:,2), '.r');
+title('稀疏表示代价曲线');
+xlabel('帧');
+ylabel('稀疏表示代价');
 
 % --- Executes on button press in radiobuttonFast.
 function radiobuttonFast_Callback(hObject, eventdata, handles)
@@ -219,6 +225,8 @@ switch get(handles.popupmenuScene,'Value')
     scene = 1;
   case 2
     scene = 2;
+  case 3
+    scene = 3;
   otherwise
 end 
 disp(['scene:',num2str(scene)]);

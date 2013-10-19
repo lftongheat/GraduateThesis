@@ -1,4 +1,4 @@
-function null = main()
+
 %---------
 
 %---------
@@ -12,10 +12,11 @@ addpath(genpath('tools/'));
 % dataset
 % UNM: scene1
 
-load data/HOFFeatures_umn_scene1_0.8.mat;
+
 disp('load data');
+%load data/HOFFeatures_umn_scene1_0.8.mat;
 % load data/HOFFeatures_umn_scene2_0.8.mat;
-% load data/HOFFeatures_umn_scene3_0.8.mat;
+load data/HOFFeatures_umn_scene3_0.8.mat;
 
 disp('Normalization');
 % Normalization: normalize all samples with zero mean and unit variance
@@ -25,17 +26,17 @@ HOFFeaturesNorm = sqrt( sum(HOFFeatures.^2,1) );
 HOFFeatures = HOFFeatures./ (ones(size(HOFFeatures,1),1)*HOFFeaturesNorm);
 
 %scene1
-scene_start = 1;
-scene_end = 1449;
+% scene_start = 1;
+% scene_end = 1449;
 %scene2
-% scene_start = 1451;
+% scene_start = 1455;
 % scene_end = 5594;
 %scene1
-% scene_start = 5596;
-% scene_end = 7738;
+scene_start = 5600;
+scene_end = 7738;
 
 %
-trainSample = HOFFeatures(:,scene_start:scene_start+400);     %320*400
+trainSample = HOFFeatures(:,scene_start:scene_start+400-1);     %320*400
 %testSample = HOFFeatures(:,scene_start+401:scene_end);   %320*
 testSample = HOFFeatures(:,scene_start:scene_end);   %320*
 
@@ -69,7 +70,7 @@ fprintf('Solving sparse coding...\n');
 % end
 
 %run the common sparse coding
-[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo);
+[energy, avgTime0, abnormalframe, xps] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, 400, scene_start);
 %run the fast sparse coding
 %[energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
 
@@ -82,20 +83,18 @@ len = size(energy,1);
 figure;
 plot(X, energy,'b', abnormalframe(:,1), abnormalframe(:,2), '.r');
 
-end
-%%
-% energyReduce = [zeros(400,1);energyReduce];
-% offset = [zeros(400,1);offset];
 
 %% graph show about the analysis result
-% label1 = {'481','610','1001','1300','1438'};
-% label2 = {'1451','1951','2451','2951','3451','3951','4451','4951','5451'};
-% label3 = {'5596','6096','6596','7096','7596','8096'};
-%figure(1)
-% subplot(2,1,1), plot(energy,'r')
-% title('sparse representation energy'),xlabel('energy')
-% set(gca,'xticklabel', label1);
-%subplot(2,1,2), plot(energyReduce,'-b')
-%title('sparse representation energyReduce'),xlabel('energyReduce')
-%set(gca,'xticklabel', label3);
 
+% x = 1:1:400;
+% y1 = xps(:,421);
+% y2 = xps(:,525);
+% figure(1)
+% subplot(2,1,1), stem(x,y1,'g')
+% %grid on;
+% set(gca, 'YLim',[-3 3]);  % X轴的数据显示范围
+% ylabel('稀疏系数');
+% title('正常帧#421');
+% subplot(2,1,2), stem(x,y2,'r');
+% ylabel('稀疏系数');
+% title('异常帧#525');
