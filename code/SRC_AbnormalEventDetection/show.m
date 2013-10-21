@@ -22,7 +22,7 @@ function varargout = show(varargin)
 
 % Edit the above text to modify the response to help show
 
-% Last Modified by GUIDE v2.5 15-Oct-2013 16:43:08
+% Last Modified by GUIDE v2.5 20-Oct-2013 21:03:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -79,6 +79,8 @@ function pushbuttonRun_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbuttonRun (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+set(handles.text2,'string', num2str(0));
+drawnow;
 global fast;
 global scene;
 if isempty(fast);
@@ -156,17 +158,24 @@ fprintf('Solving sparse coding...\n');
 
 if fast == 0
 %run the common sparse coding
-[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, train_num, scene_start);
+[energy, avgTime, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, train_num, scene_start);
 else
 %run the fast sparse coding
 [energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo,train_num, scene_start);
 end
 
+set(handles.text2,'string', num2str(avgTime));
+drawnow;
+
 disp('click enter to draw the energy curve');
 pause;
 
 len = size(energy,1);
-[X]=1:len;
+[X]=1+scene_start-1:len+scene_start-1;
+for i=1:size(abnormalframe(:,1))
+    abnormalframe(i,1) = abnormalframe(i,1) + scene_start-1;
+end
+
 figure;
 plot(X, energy,'b', abnormalframe(:,1), abnormalframe(:,2), '.r');
 title('稀疏表示代价曲线');

@@ -43,7 +43,7 @@ WY = OMP(D, Y, L);
 
 % Compute the sparse representation X
 Ainv = pinv(A);
-w = 5;
+w = 4;
 if scene_start == 5600
     w = 3;
 end

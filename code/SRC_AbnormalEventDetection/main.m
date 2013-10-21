@@ -70,7 +70,7 @@ fprintf('Solving sparse coding...\n');
 % end
 
 %run the common sparse coding
-[energy, avgTime0, abnormalframe, xps] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, 400, scene_start);
+[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, 400, scene_start);
 %run the fast sparse coding
 %[energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
 

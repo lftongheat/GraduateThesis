@@ -1,4 +1,4 @@
-function [energy, avgTime, abnormalframe, xps] = computeSRenergy0(Y, A, D, sc_algo, train_num, scene_start )
+function [energy, avgTime, abnormalframe] = computeSRenergy0(Y, A, D, sc_algo, train_num, scene_start )
 % ---------------------------------------------------
 % Compute Sparse Representation Energy 
 % Functionality: 
@@ -24,7 +24,7 @@ function [energy, avgTime, abnormalframe, xps] = computeSRenergy0(Y, A, D, sc_al
 Nte = size(Y, 2);
 energy = zeros(Nte, 1);
 abnormalframe = zeros(Nte, 2);
-xps = zeros(400, Nte);
+%xps = zeros(400, Nte);
 %%
 source = VideoReader('E:\Resources\vision_data\UMN Dataset\Crowd-Activity-All.AVI'); %读入原始视频
 textColor    = [255, 0, 0]; % [red, green, blue]
@@ -35,7 +35,7 @@ textInserter = vision.TextInserter('Warning!', ...
 
 %% Compute the sparse representation X
 Ainv = pinv(A);
-w = 5;
+w = 4;
 if scene_start == 5600
     w = 3;
 end
@@ -54,7 +54,7 @@ for i = 1: Nte
     t = toc;
     sumTime = sumTime+t;
     
-    xps(:,i) = xp;
+    %xps(:,i) = xp;
     %计算恢复后的值与初始猜测值的2范式即欧几里德范数 表示偏差或偏离度
     %offset(i,:) = norm(xp-xInit);
     
