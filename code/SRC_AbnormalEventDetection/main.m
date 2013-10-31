@@ -14,7 +14,7 @@ addpath(genpath('tools/'));
 
 
 disp('load data');
-%load data/HOFFeatures_umn_scene1_0.8.mat;
+% load data/HOFFeatures_umn_scene1_0.8.mat;
 % load data/HOFFeatures_umn_scene2_0.8.mat;
 load data/HOFFeatures_umn_scene3_0.8.mat;
 
@@ -25,18 +25,20 @@ HOFFeatures = HOFFeatures-ones(size(HOFFeatures,1),1)*HOFFeaturesAvg;
 HOFFeaturesNorm = sqrt( sum(HOFFeatures.^2,1) );
 HOFFeatures = HOFFeatures./ (ones(size(HOFFeatures,1),1)*HOFFeaturesNorm);
 
+train_num = 400;
 %scene1
 % scene_start = 1;
 % scene_end = 1449;
 %scene2
 % scene_start = 1455;
 % scene_end = 5594;
+% train_num = 310;
 %scene1
 scene_start = 5600;
 scene_end = 7738;
 
 %
-trainSample = HOFFeatures(:,scene_start:scene_start+400-1);     %320*400
+trainSample = HOFFeatures(:,scene_start:scene_start+train_num-1);     %320*400
 %testSample = HOFFeatures(:,scene_start+401:scene_end);   %320*
 testSample = HOFFeatures(:,scene_start:scene_end);   %320*
 
@@ -70,9 +72,9 @@ fprintf('Solving sparse coding...\n');
 % end
 
 %run the common sparse coding
-[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, 400, scene_start);
+%[energy, avgTime0, abnormalframe] = computeSRenergy0(testSample, trainSample, Dictionary, sc_algo, train_num, scene_start);
 %run the fast sparse coding
-%[energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo);
+[energy, avgTime, abnormalframe] = computeSRenergy(testSample, trainSample, Dictionary, param.L, sc_algo, train_num, scene_start);
 
 disp('click enter to draw the energy curve');
 pause;
@@ -93,8 +95,10 @@ plot(X, energy,'b', abnormalframe(:,1), abnormalframe(:,2), '.r');
 % subplot(2,1,1), stem(x,y1,'g')
 % %grid on;
 % set(gca, 'YLim',[-3 3]);  % X轴的数据显示范围
-% ylabel('稀疏系数');
-% title('正常帧#421');
+% ylabel('稀疏系数', 'FontSize', 18);
+% title('正常帧#421', 'FontSize', 18);
+% set(gca,'FontSize',16);
 % subplot(2,1,2), stem(x,y2,'r');
-% ylabel('稀疏系数');
-% title('异常帧#525');
+% ylabel('稀疏系数', 'FontSize', 18);
+% title('异常帧#525', 'FontSize', 18);
+% set(gca,'FontSize',16);

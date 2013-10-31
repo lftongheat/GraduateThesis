@@ -92,6 +92,7 @@ for i = 1: Nte
             if abnormalscene_num > 3 %需保证至少连续四帧异常时才报警
                 J = step(textInserter, fr);
                 imshow(J);
+                %pause;
             else
                 imshow(fr);
             end

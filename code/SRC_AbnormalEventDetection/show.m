@@ -60,7 +60,7 @@ guidata(hObject, handles);
 
 % UIWAIT makes show wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-
+set(gcf,'numbertitle','off','name','视频异常检测');
 
 
 % --- Outputs from this function are returned to the command line.
@@ -178,9 +178,10 @@ end
 
 figure;
 plot(X, energy,'b', abnormalframe(:,1), abnormalframe(:,2), '.r');
-title('稀疏表示代价曲线');
-xlabel('帧');
-ylabel('稀疏表示代价');
+title('稀疏表示代价曲线', 'FontSize', 20);
+xlabel('帧', 'FontSize', 18);
+ylabel('稀疏表示代价', 'FontSize', 18);
+set(gca,'FontSize',16);
 
 % --- Executes on button press in radiobuttonFast.
 function radiobuttonFast_Callback(hObject, eventdata, handles)
