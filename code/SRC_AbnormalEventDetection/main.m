@@ -15,8 +15,8 @@ addpath(genpath('tools/'));
 
 disp('load data');
 % load data/HOFFeatures_umn_scene1_0.8.mat;
-% load data/HOFFeatures_umn_scene2_0.8.mat;
-load data/HOFFeatures_umn_scene3_0.8.mat;
+load data/HOFFeatures_umn_scene2_0.8.mat;
+% load data/HOFFeatures_umn_scene3_0.8.mat;
 
 disp('Normalization');
 % Normalization: normalize all samples with zero mean and unit variance
@@ -30,12 +30,12 @@ train_num = 400;
 % scene_start = 1;
 % scene_end = 1449;
 %scene2
-% scene_start = 1455;
-% scene_end = 5594;
-% train_num = 310;
+scene_start = 1455;
+scene_end = 5594;
+train_num = 310;
 %scene1
-scene_start = 5600;
-scene_end = 7738;
+% scene_start = 5600;
+% scene_end = 7738;
 
 %
 trainSample = HOFFeatures(:,scene_start:scene_start+train_num-1);     %320*400
